@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday ❤️</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", sans-serif;
+      background: linear-gradient(160deg, #ffd5e7, #ffffff, #ffeaf4);
+    }
+
+    .phone {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #app {
+      width: 100%;
+      height: 100%;
+    }
+
+    .page {
+      display: none;
+      width: 100%;
+      height: 100%;
+      padding: 25px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page.active {
+      display: flex;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 390px;
+      padding: 35px 25px;
+      border-radius: 35px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(25px);
+      box-shadow: 0 20px 60px rgba(255, 80, 150, 0.2);
+      text-align: center;
+      animation: fade 0.5s ease;
+    }
+
+    h1 {
+      color: #ff4f91;
+      font-size: 32px;
+      margin: 0 0 20px;
+    }
+
+    h2,
+    h3 {
+      color: #333;
+      margin: 0 0 20px;
+    }
+
+    p {
+      font-size: 17px;
+      line-height: 1.7;
+      margin: 0 0 20px;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      margin: 8px 0;
+      border: 0;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #ff579d, #ff9ac4);
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:active,
+    .choice:active {
+      transform: scale(0.95);
+    }
+
+    .notification {
+      background: white;
+    }
+
+    #photo {
+      width: 100%;
+      height: 430px;
+      object-fit: cover;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 15px 35px #0003;
+    }
+
+    .box {
+      font-size: 120px;
+      cursor: pointer;
+      animation: shake 1s infinite;
+    }
+
+    .cake {
+      width: 270px;
+      height: 220px;
+      margin: 40px auto 10px;
+      position: relative;
+    }
+
+    .candleArea {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 35px;
+      z-index: 5;
+    }
+
+    .candle {
+      width: 14px;
+      height: 70px;
+      background: linear-gradient(90deg, #fff, #ffd0df);
+      border-radius: 8px;
+      position: relative;
+    }
+
+    .candle span {
+      position: absolute;
+      top: -40px;
+      left: -13px;
+      font-size: 35px;
+      cursor: pointer;
+      animation: flame 0.8s infinite alternate;
+    }
+
+    .creamTop {
+      position: absolute;
+      top: 80px;
+      left: 20px;
+      width: 230px;
+      height: 45px;
+      background: white;
+      border-radius: 50%;
+      z-index: 3;
+    }
+
+    .creamTop:after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      left: 30px;
+      width: 25px;
+      height: 25px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 45px 5px white, 90px -5px white, 140px 5px white;
+    }
+
+    .cakeBody {
+      position: absolute;
+      top: 110px;
+      left: 20px;
+      width: 230px;
+      height: 70px;
+      background: linear-gradient(#ff86b5, #ff4f91);
+      border-radius: 15px 15px 25px 25px;
+      box-shadow: 0 15px 30px #0003;
+    }
+
+    .cakeBottom {
+      position: absolute;
+      top: 175px;
+      left: 10px;
+      width: 250px;
+      height: 40px;
+      background: linear-gradient(#ff6fa8, #ff3f82);
+      border-radius: 10px 10px 25px 25px;
+    }
+
+    .choices {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .choice {
+      flex: 1;
+      min-height: 160px;
+      background: white;
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 25px;
+      box-shadow: 0 15px 30px #0002;
+      cursor: pointer;
+      padding: 16px;
+      text-align: center;
+    }
+
+    small {
+      color: #888;
+    }
+
+    @keyframes flame {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: rotate(0); }
+      25% { transform: rotate(8deg); }
+      75% { transform: rotate(-8deg); }
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div id="app">
+      <section class="page active" id="start">
+        <div class="card">
+          <h1>🎂 Happy Birthday<br>연승❤️</h1>
+          <p>오늘은 오빠의 생일!<br>소소한 이벤트를 준비해봤어😊<br><br>준비됐으면 START를 눌러줘!</p>
+          <button type="button" onclick="go('mission1')">START</button>
+        </div>
+      </section>
+
+      <section class="page" id="mission1">
+        <div class="card">
+          <h2>우리가 처음 만난 날은?</h2>
+          <button type="button" onclick="wrong('answer1')">12월 24일</button>
+          <button type="button" onclick="correct1()">12월 16일 ❤️</button>
+          <button type="button" onclick="wrong('answer1')">1월 16일</button>
+          <p id="answer1"></p>
+        </div>
+      </section>
+
+      <section class="page" id="mission2">
+        <div class="card">
+          <h2>오늘은 무슨 날일까요?</h2>
+          <button type="button" onclick="correct2()">❤️ 연승이의 날</button>
+          <button type="button" onclick="wrong('answer2')">🩷 보영이의 날</button>
+          <button type="button" onclick="wrong('answer2')">😂 성욱이의 날</button>
+          <p id="answer2"></p>
+        </div>
+      </section>
+
+      <section class="page" id="notice">
+        <div class="card notification">
+          <h3>새 메시지가 도착했습니다.</h3>
+          <p>📸 추억 앨범이 공유되었습니다.</p>
+          <button type="button" onclick="galleryStart()">확인</button>
+        </div>
+      </section>
+
+      <section class="page" id="gallery">
+        <div class="card">
+          <img id="photo" alt="추억 사진" />
+          <h3 id="caption"></h3>
+          <p>사진을 눌러 다음 사진 ❤️</p>
+        </div>
+      </section>
+
+      <section class="page" id="box">
+        <div class="card">
+          <h2>작은 선물이 있어❤️</h2>
+          <div class="box" onclick="showCake()">🎁</div>
+          <p>상자를 눌러봐</p>
+        </div>
+      </section>
+
+      <section class="page" id="cake">
+        <div class="card">
+          <h2>케이크의 초를 꺼볼까?🕯️</h2>
+          <p>초의 불만 눌러서 꺼줘!</p>
+          <div class="cake">
+            <div class="candleArea">
+              <div class="candle"><span id="fire0" onclick="off(0)">🔥</span></div>
+              <div class="candle"><span id="fire1" onclick="off(1)">🔥</span></div>
+              <div class="candle"><span id="fire2" onclick="off(2)">🔥</span></div>
+            </div>
+            <div class="creamTop"></div>
+            <div class="cakeBody"></div>
+            <div class="cakeBottom"></div>
+          </div>
+          <h2 id="wish"></h2>
+        </div>
+      </section>
+
+      <section class="page" id="gift">
+        <div class="card">
+          <h2>이제 진짜 선물을 골라봐!</h2>
+          <div class="choices">
+            <div class="choice" onclick="badGift()">📦<br>Mystery Box</div>
+            <div class="choice" onclick="realGift()">❓</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="ending">
+        <div class="card">
+          <h1>Happy Birthday<br>연승 오빠❤️</h1>
+          <p>오늘 하루<br>행복하기만 하면 좋겠다.<br><br>생일 진심으로<br>내가 제일 축하해.<br><br>사랑해❤️</p>
+          <small>Made with ❤️ by 보영</small>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    function go(id) {
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function wrong(id) {
+      document.getElementById(id).innerHTML = '다시 생각해봐! 😊';
+    }
+
+    function correct1() {
+      document.getElementById('answer1').innerHTML = '딩동댕!<br>역시 우리를 잘 아네❤️';
+      setTimeout(() => go('mission2'), 1200);
+    }
+
+    function correct2() {
+      document.getElementById('answer2').innerHTML = '역시 오늘의 주인공은 오빠지❤️';
+      setTimeout(() => go('notice'), 1200);
+    }
+
+    const photos = [
+      'https://i.postimg.cc/4n6jn87p/photo1-jpg.jpg',
+      'https://i.postimg.cc/MX7gXsMD/photo2-jpg.jpg',
+      'https://i.postimg.cc/grV1rMXs/photo3-jpg.jpg',
+      'https://i.postimg.cc/Z08X0fBj/photo5-jpg.jpg',
+      'https://i.postimg.cc/qgsWgmhc/photo6-jpg.jpg',
+      'https://i.postimg.cc/BtTRthL7/photo7-jpg.jpg'
+    ];
+
+    const captions = [
+      '오빠랑 함께한 날들은',
+      '하루하루가',
+      '정말 소중하고',
+      '행복했어.',
+      '오빠는 나에게',
+      '매일 선물 같은 존재야.'
+    ];
+
+    let photoIndex = 0;
+
+    function galleryStart() {
+      photoIndex = 0;
+      go('gallery');
+      showPhoto();
+    }
+
+    function showPhoto() {
+      const img = document.getElementById('photo');
+      img.onerror = function () {
+        img.src = 'https://placehold.co/500x700?text=Photo+Error';
+      };
+      img.src = photos[photoIndex];
+      document.getElementById('caption').innerHTML = captions[photoIndex];
+    }
+
+    document.getElementById('photo').addEventListener('click', function () {
+      photoIndex++;
+      if (photoIndex >= photos.length) {
+        go('box');
+      } else {
+        showPhoto();
+      }
+    });
+
+    function showCake() {
+      go('cake');
+    }
+
+    let candleState = [true, true, true];
+
+    function off(num) {
+      if (!candleState[num]) return;
+      candleState[num] = false;
+      document.getElementById('fire' + num).innerHTML = '';
+      if (!candleState[0] && !candleState[1] && !candleState[2]) {
+        document.getElementById('wish').innerHTML = '🎉🎆🎉<br>소원은 빌었어?😊';
+        setTimeout(() => go('gift'), 2000);
+      }
+    }
+
+    function badGift() {
+      alert('진짜??\n\n...\n\n다시 선택해!!😂');
+    }
+
+    function realGift() {
+      alert('선물을 확인하는 중...\n\n위치를 확인하는 중...\n\n선물을 찾았습니다!\n\n🚪 화장실 문을\n✊✊ 두 번 두드려 주세요.');
+      setTimeout(() => go('ending'), 1500);
+    }
+  </script>
+</body>
+</html>
